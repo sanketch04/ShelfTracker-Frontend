@@ -1,25 +1,24 @@
-import { useState } from 'react'
-import index from './pages/index'
-import './App.css'
-import Navbar from '../components/Navbar'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import AppLayout from "./components/AppLayout";
+
+
+import "./App.css";
+import Index from "./pages";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <BrowserRouter>
-      <Navbar />
+    <BrowserRouter>
       <Routes>
+        <Route element={<AppLayout />}>
 
-        <Route path="/" element={<index />} />
+          <Route path="/" element={<Index/>} />
 
-       
-
+         
+        </Route>
       </Routes>
     </BrowserRouter>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
