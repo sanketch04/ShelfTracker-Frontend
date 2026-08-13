@@ -8,35 +8,19 @@ function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen w-full bg-gray-100 overflow-x-hidden">
+    <div className="h-screen w-full overflow-hidden bg-gray-100">
+      <Navbar onMenuClick={() => setSidebarOpen(true)} />
 
-      <Navbar
-        onMenuClick={() => setSidebarOpen(true)}
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
 
-      <div className="flex w-full">
-
-        <Sidebar
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-        />
-
-        <main
-          className="
-            min-w-0
-            flex-1
-            w-full
-            p-3
-            sm:p-4
-            md:p-5
-            lg:p-6
-          "
-        >
+      <main className="ml-0 h-screen overflow-y-auto overflow-x-hidden pt-16 lg:ml-64">
+        <div className="w-full p-3 sm:p-4 md:p-5 lg:p-6">
           <Outlet />
-        </main>
-
-      </div>
-
+        </div>
+      </main>
     </div>
   );
 }

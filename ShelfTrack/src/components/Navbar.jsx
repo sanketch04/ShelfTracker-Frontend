@@ -2,43 +2,43 @@ function Navbar({ onMenuClick }) {
   return (
     <nav
       className="
-        sticky
+        fixed
+        left-0
+        right-0
         top-0
-        z-40
+        z-50
+        flex
         h-16
         w-full
-        bg-white
-        border-b
-        border-gray-200
-        flex
         items-center
         justify-between
+        border-b
+        border-gray-200
+        bg-white
         px-3
         sm:px-4
         md:px-6
       "
     >
-
-      <div className="flex items-center min-w-0">
-
+      <div className="flex min-w-0 items-center">
         <button
           type="button"
           onClick={onMenuClick}
           className="
-            lg:hidden
+            mr-2
             flex
+            h-10
+            w-10
             items-center
             justify-center
-            w-10
-            h-10
-            mr-2
             rounded-lg
             hover:bg-gray-100
             active:bg-gray-200
+            lg:hidden
           "
         >
           <svg
-            className="w-6 h-6 text-gray-700"
+            className="h-6 w-6 text-gray-700"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -52,45 +52,32 @@ function Navbar({ onMenuClick }) {
           </svg>
         </button>
 
-        <h1
-          className="
-            text-xl
-            sm:text-2xl
-            font-bold
-            text-blue-600
-            truncate
-          "
-        >
+        <h1 className="truncate text-xl font-bold text-blue-600 sm:text-2xl">
           ShelfTrack
         </h1>
-
       </div>
 
-
       <div className="flex items-center gap-2 sm:gap-4">
-
-        <span className="hidden md:block text-sm text-gray-600">
+        <span className="hidden text-sm text-gray-600 md:block">
           Welcome, User
         </span>
 
         <button
           type="button"
           className="
+            whitespace-nowrap
+            rounded-lg
+            bg-gray-100
             px-3
             py-2
-            sm:px-4
             text-sm
-            bg-gray-100
-            rounded-lg
             hover:bg-gray-200
-            whitespace-nowrap
+            sm:px-4
           "
         >
           Profile
         </button>
-
       </div>
-
     </nav>
   );
 }

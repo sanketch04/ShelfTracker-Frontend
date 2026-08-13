@@ -25,19 +25,11 @@ const Dashboard = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // =====================================================
-  // FETCH DASHBOARD DATA
-  // =====================================================
-
   useEffect(() => {
     const fetchDashboardStats = async () => {
       setLoading(true);
 
       try {
-        // =================================================
-        // BOOK API
-        // =================================================
-
         const bookData = await getAllBooks(
           "",
           "",
@@ -50,77 +42,34 @@ const Dashboard = () => {
 
         const items = bookData?.items || [];
 
-        // =================================================
-        // ISSUED BOOKS
-        // =================================================
-
         const issuedBooksCount = items.reduce(
-          (total, book) =>
-            total + (book.issuedStock || 0),
+          (total, book) => total + (book.issuedStock || 0),
           0
         );
-
-        // =================================================
-        // AVAILABLE BOOKS
-        // =================================================
 
         const availableBooksCount = items.reduce(
-          (total, book) =>
-            total + (book.availableStock || 0),
+          (total, book) => total + (book.availableStock || 0),
           0
         );
-
-        // =================================================
-        // TOTAL STOCK
-        // =================================================
 
         const totalStockCount = items.reduce(
-          (total, book) =>
-            total + (book.totalStock || 0),
+          (total, book) => total + (book.totalStock || 0),
           0
         );
 
-        // =================================================
-        // MEMBER API
-        // =================================================
-
-        const memberData = await getAllMembers(
-          "",
-          null,
-          1,
-          1
-        );
-
-        // =================================================
-        // SET ALL STATS
-        // =================================================
+        const memberData = await getAllMembers("", null, 1, 1);
 
         setStats({
-          allBooksCount:
-            bookData?.totalCount || 0,
-
+          allBooksCount: bookData?.totalCount || 0,
           issuedBooksCount,
-
           availableBooksCount,
-
           totalStockCount,
-
-          // Overdue API अजून जोडलेला नाही
           overdueCount: 0,
-
-          // Member API मधून actual count
-          membersCount:
-            memberData?.totalCount || 0,
+          membersCount: memberData?.totalCount || 0,
         });
       } catch (error) {
-        console.error(
-          "Dashboard error:",
-          error
-        );
-
-        toast.error(
-          "Failed to load dashboard statistics."
-        );
+        console.error("Dashboard error:", error);
+        toast.error("Failed to load dashboard statistics.");
       } finally {
         setLoading(false);
       }
@@ -129,175 +78,105 @@ const Dashboard = () => {
     fetchDashboardStats();
   }, []);
 
-  // =====================================================
-  // DASHBOARD CARDS
-  // =====================================================
-
   const cards = [
     {
       title: "All Books",
       value: stats.allBooksCount,
-
       icon: BookOpen,
-
       borderColor: "border-l-blue-500",
+      accent: "bg-blue-500",
       text: "text-blue-600",
       iconBg: "bg-blue-50",
     },
-
     {
-      title: "Issued Book",
+      title: "Issued Books",
       value: stats.issuedBooksCount,
-
       icon: BookMarked,
-
       borderColor: "border-l-amber-500",
-      text: "text-amber-500",
+      accent: "bg-amber-500",
+      text: "text-amber-600",
       iconBg: "bg-amber-50",
     },
-
     {
-      title: "Available Book",
+      title: "Available Books",
       value: stats.availableBooksCount,
-
       icon: CheckCircle,
-
       borderColor: "border-l-emerald-500",
+      accent: "bg-emerald-500",
       text: "text-emerald-600",
       iconBg: "bg-emerald-50",
     },
-
     {
       title: "Total Stock",
       value: stats.totalStockCount,
-
       icon: Package,
-
       borderColor: "border-l-indigo-500",
+      accent: "bg-indigo-500",
       text: "text-indigo-600",
       iconBg: "bg-indigo-50",
     },
-
     {
-      title: "Overdue Book",
+      title: "Overdue Books",
       value: stats.overdueCount,
-
       icon: AlertTriangle,
-
       borderColor: "border-l-red-500",
+      accent: "bg-red-500",
       text: "text-red-600",
       iconBg: "bg-red-50",
     },
-
     {
       title: "Members",
       value: stats.membersCount,
-
       icon: Users,
-
       borderColor: "border-l-purple-500",
+      accent: "bg-purple-500",
       text: "text-purple-600",
       iconBg: "bg-purple-50",
     },
   ];
 
-  // =====================================================
-  // UI
-  // =====================================================
-
   return (
     <div className="w-full p-0">
-
-      {/* =================================================
-          CARDS
-      ================================================= */}
-
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-6">
-
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-6">
         {cards.map((card) => {
           const Icon = card.icon;
 
           return (
             <div
               key={card.title}
-              className={`
-                flex
-                items-center
-                justify-between
-                rounded-xl
-                border
-                border-gray-100
-                border-l-4
-                ${card.borderColor}
-                bg-white
-                px-3
-                py-3
-                shadow-sm
-                transition-all
-                duration-200
-                hover:-translate-y-0.5
-                hover:shadow-md
-              `}
+              className={`relative overflow-hidden rounded-lg border border-gray-200 border-l-4 bg-white px-3 py-3 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md ${card.borderColor}`}
             >
-
-              {/* =========================================
-                  LEFT CONTENT
-              ========================================= */}
-
-              <div className="min-w-0">
-
-                {/* TITLE */}
-
-                <p className="truncate text-[10px] font-medium uppercase tracking-wide text-gray-400">
-                  {card.title}
-                </p>
-
-                {/* COUNT */}
-
-                <p
-                  className={`
-                    mt-1
-                    text-2xl
-                    font-bold
-                    leading-none
-                    ${card.text}
-                  `}
-                >
-                  {loading ? "..." : card.value}
-                </p>
-
-              </div>
-
-              {/* =========================================
-                  ICON
-              ========================================= */}
-
               <div
-                className={`
-                  ml-2
-                  flex
-                  h-9
-                  w-9
-                  shrink-0
-                  items-center
-                  justify-center
-                  rounded-lg
-                  ${card.iconBg}
-                `}
-              >
-                <Icon
-                  size={18}
-                  strokeWidth={2}
-                  className={card.text}
-                />
-              </div>
+                className={`absolute left-0 top-0 h-full w-1 ${card.accent}`}
+              />
 
+              <div className="flex items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="truncate text-[10px] font-semibold uppercase tracking-wide text-gray-400">
+                    {card.title}
+                  </p>
+
+                  <p
+                    className={`mt-1 text-xl font-bold leading-none ${card.text}`}
+                  >
+                    {loading ? "..." : card.value}
+                  </p>
+                </div>
+
+                <div
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md ${card.iconBg}`}
+                >
+                  <Icon
+                    size={16}
+                    strokeWidth={2}
+                    className={card.text}
+                  />
+                </div>
+              </div>
             </div>
           );
         })}
-
       </div>
-
     </div>
   );
 };
