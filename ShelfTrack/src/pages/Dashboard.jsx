@@ -140,29 +140,29 @@ const Dashboard = () => {
 
       icon: BookOpen,
 
-      border: "border-blue-500",
+      borderColor: "border-l-blue-500",
       text: "text-blue-600",
       iconBg: "bg-blue-50",
     },
 
     {
-      title: "Issued",
+      title: "Issued Book",
       value: stats.issuedBooksCount,
 
       icon: BookMarked,
 
-      border: "border-amber-500",
+      borderColor: "border-l-amber-500",
       text: "text-amber-500",
       iconBg: "bg-amber-50",
     },
 
     {
-      title: "Available",
+      title: "Available Book",
       value: stats.availableBooksCount,
 
       icon: CheckCircle,
 
-      border: "border-emerald-500",
+      borderColor: "border-l-emerald-500",
       text: "text-emerald-600",
       iconBg: "bg-emerald-50",
     },
@@ -173,18 +173,18 @@ const Dashboard = () => {
 
       icon: Package,
 
-      border: "border-indigo-500",
+      borderColor: "border-l-indigo-500",
       text: "text-indigo-600",
       iconBg: "bg-indigo-50",
     },
 
     {
-      title: "Overdue",
+      title: "Overdue Book",
       value: stats.overdueCount,
 
       icon: AlertTriangle,
 
-      border: "border-red-500",
+      borderColor: "border-l-red-500",
       text: "text-red-600",
       iconBg: "bg-red-50",
     },
@@ -195,7 +195,7 @@ const Dashboard = () => {
 
       icon: Users,
 
-      border: "border-purple-500",
+      borderColor: "border-l-purple-500",
       text: "text-purple-600",
       iconBg: "bg-purple-50",
     },
@@ -228,7 +228,7 @@ const Dashboard = () => {
                 border
                 border-gray-100
                 border-l-4
-                ${card.border}
+                ${card.borderColor}
                 bg-white
                 px-3
                 py-3
