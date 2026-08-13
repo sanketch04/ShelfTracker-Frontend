@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { issueBook } from "../../api/issueApi";
-import { getAllMembers } from "../../api/memberApi";
-import { getBookById } from "../../api/bookApi";
+
+import { issueBook } from "../../api/IssueServices/issueAxios";
+import { getAllMembers } from "../../api/MemberServices/memberAxios";
+import {
+  getAvailableBookCopies,
+} from "../../api/BookServices/bookAxios";
 
 const IssueBookModal = ({
   isOpen,
@@ -19,6 +22,10 @@ const IssueBookModal = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // ============================================
+  // LOAD MEMBERS + AVAILABLE BOOK COPIES
+  // ============================================
+
   useEffect(() => {
     if (!isOpen || !book) return;
 
@@ -29,6 +36,7 @@ const IssueBookModal = ({
     try {
       setError("");
 
+      // Get members
       const memberResponse = await getAllMembers();
 
       setMembers(
@@ -37,23 +45,42 @@ const IssueBookModal = ({
           : memberResponse.items || []
       );
 
-      const bookResponse = await getBookById(book.id);
+      // Get available copies for selected book
+      const copiesResponse = await getAvailableBookCopies(book.id);
 
-      setBookCopies(bookResponse.bookCopies || []);
+      console.log("AVAILABLE BOOK COPIES:", copiesResponse);
+
+      setBookCopies(
+        Array.isArray(copiesResponse)
+          ? copiesResponse
+          : copiesResponse.items || []
+      );
+
     } catch (error) {
       console.error(error);
-      setError("Unable to load members or book copies.");
+
+      setError(
+        "Unable to load members or available book copies."
+      );
     }
   };
+
+  // ============================================
+  // ISSUE BOOK
+  // ============================================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setError("");
+
+    // Validate member
     if (!memberId) {
       setError("Please select a member.");
       return;
     }
 
+    // Validate book copy
     if (!bookCopyId) {
       setError("Please select a book copy.");
       return;
@@ -61,17 +88,19 @@ const IssueBookModal = ({
 
     try {
       setLoading(true);
-      setError("");
 
       await issueBook({
-        bookCopyId,
-        memberId,
+        bookCopyId: Number(bookCopyId),
+        memberId: Number(memberId),
         dueDate: dueDate || null,
       });
 
+      // Refresh parent data
       onSuccess?.();
 
+      // Close modal
       onClose();
+
     } catch (error) {
       console.error(error);
 
@@ -84,21 +113,35 @@ const IssueBookModal = ({
     }
   };
 
+  // ============================================
+  // CLOSE MODAL
+  // ============================================
+
   if (!isOpen) {
     return null;
   }
+
+  // ============================================
+  // UI
+  // ============================================
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
 
       <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
 
+        {/* TITLE */}
+
         <h2 className="text-lg font-semibold text-gray-800">
           Issue Book
         </h2>
 
-        {/* BOOK */}
+        {/* ============================================
+            BOOK DETAILS
+        ============================================ */}
+
         <div className="mt-4 rounded-lg bg-gray-50 p-3">
+
           <p className="text-xs text-gray-400">
             Book
           </p>
@@ -110,12 +153,17 @@ const IssueBookModal = ({
           <p className="text-xs text-gray-500">
             ISBN: {book?.isbn}
           </p>
+
         </div>
 
         <form onSubmit={handleSubmit}>
 
-          {/* MEMBER */}
+          {/* ============================================
+              MEMBER
+          ============================================ */}
+
           <div className="mt-4">
+
             <label className="mb-1 block text-sm font-medium text-gray-700">
               Member
             </label>
@@ -123,8 +171,10 @@ const IssueBookModal = ({
             <select
               value={memberId}
               onChange={(e) => setMemberId(e.target.value)}
+              disabled={loading}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-blue-500"
             >
+
               <option value="">
                 Select member
               </option>
@@ -137,11 +187,17 @@ const IssueBookModal = ({
                   {member.name}
                 </option>
               ))}
+
             </select>
+
           </div>
 
-          {/* BOOK COPY */}
+          {/* ============================================
+              BOOK COPY
+          ============================================ */}
+
           <div className="mt-4">
+
             <label className="mb-1 block text-sm font-medium text-gray-700">
               Book Copy
             </label>
@@ -149,31 +205,41 @@ const IssueBookModal = ({
             <select
               value={bookCopyId}
               onChange={(e) => setBookCopyId(e.target.value)}
+              disabled={loading}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-blue-500"
             >
+
               <option value="">
                 Select available copy
               </option>
 
-              {bookCopies
-                .filter(
-                  (copy) =>
-                    copy.status === 0 ||
-                    copy.status === "Available"
-                )
-                .map((copy) => (
-                  <option
-                    key={copy.id}
-                    value={copy.id}
-                  >
-                    {copy.accessionNumber}
-                  </option>
-                ))}
+              {bookCopies.map((copy) => (
+                <option
+                  key={copy.id}
+                  value={copy.id}
+                >
+                  {copy.accessionNumber}
+                </option>
+              ))}
+
             </select>
+
+            {/* No copies available */}
+
+            {bookCopies.length === 0 && (
+              <p className="mt-1 text-xs text-red-500">
+                No available copies for this book.
+              </p>
+            )}
+
           </div>
 
-          {/* DUE DATE */}
+          {/* ============================================
+              DUE DATE
+          ============================================ */}
+
           <div className="mt-4">
+
             <label className="mb-1 block text-sm font-medium text-gray-700">
               Due Date
             </label>
@@ -182,36 +248,44 @@ const IssueBookModal = ({
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
+              disabled={loading}
               className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-blue-500"
             />
 
             <p className="mt-1 text-xs text-gray-400">
               Leave empty to use the default 14 days.
             </p>
+
           </div>
 
-          {/* ERROR */}
+          {/* ============================================
+              ERROR
+          ============================================ */}
+
           {error && (
             <div className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
               {error}
             </div>
           )}
 
-          {/* BUTTONS */}
+          {/* ============================================
+              BUTTONS
+          ============================================ */}
+
           <div className="mt-6 flex justify-end gap-2">
 
             <button
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="rounded-lg bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+              className="rounded-lg bg-gray-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 disabled:opacity-50"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || bookCopies.length === 0}
               className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
             >
               {loading ? "Issuing..." : "Issue Book"}
@@ -222,6 +296,7 @@ const IssueBookModal = ({
         </form>
 
       </div>
+
     </div>
   );
 };
