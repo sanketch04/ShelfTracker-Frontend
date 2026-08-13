@@ -3,7 +3,7 @@ const BookTable = ({
   loading = false,
   onEdit,
   onDelete,
-  onIssue,
+  
 }) => {
   const truncateDescription = (text) => {
     if (!text) return "No description provided";
@@ -111,13 +111,13 @@ const BookTable = ({
                 {/* Actions */}
                 <td className="whitespace-nowrap px-3 py-2">
                   <div className="flex justify-center gap-1">
-                    <button
+                    {/* <button
                       type="button"
                       onClick={() => onIssue(book)}
                       className="rounded-lg px-3 py-1.5 text-xs font-medium text-emerald-600 transition hover:bg-emerald-50"
                     >
                       Issue
-                    </button>
+                    </button> */}
                     <button
                       type="button"
                       onClick={() => onEdit(book)}
