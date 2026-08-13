@@ -320,47 +320,61 @@ const ManageBooks = () => {
 
   return (
     <div className="space-y-5 p-0">
-      <h1 className="text-center text-2xl font-bold text-gray-800">
-        Manage Books
-      </h1>
+     
 
-      <div className="flex flex-wrap gap-4">
-        <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
-            All Books
-          </h3>
-          <p className="mt-2 text-2xl font-bold text-blue-600">
-            {stats.allBooksCount}
-          </p>
-        </div>
+      <div className="flex flex-wrap gap-3">
+  {/* All Books */}
+  <div className="relative w-full overflow-hidden rounded-lg border border-gray-100 bg-white px-4 py-3 shadow-sm sm:w-44">
+    <div className="absolute left-0 top-0 h-full w-1 bg-blue-500" />
 
-        <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
-            Issued Books
-          </h3>
-          <p className="mt-2 text-2xl font-bold text-amber-500">
-            {stats.issuedBooksCount}
-          </p>
-        </div>
+    <h3 className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
+      All Books
+    </h3>
 
-        <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
-            Available Books
-          </h3>
-          <p className="mt-2 text-2xl font-bold text-emerald-600">
-            {stats.availableBooksCount}
-          </p>
-        </div>
+    <p className="mt-1 text-xl font-bold text-blue-600">
+      {stats.allBooksCount}
+    </p>
+  </div>
 
-        <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
-          <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
-            Total Stock
-          </h3>
-          <p className="mt-2 text-2xl font-bold text-indigo-600">
-            {stats.totalStockCount}
-          </p>
-        </div>
-      </div>
+  {/* Issued Books */}
+  <div className="relative w-full overflow-hidden rounded-lg border border-gray-100 bg-white px-4 py-3 shadow-sm sm:w-44">
+    <div className="absolute left-0 top-0 h-full w-1 bg-amber-500" />
+
+    <h3 className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
+      Issued Books
+    </h3>
+
+    <p className="mt-1 text-xl font-bold text-amber-500">
+      {stats.issuedBooksCount}
+    </p>
+  </div>
+
+  {/* Available Books */}
+  <div className="relative w-full overflow-hidden rounded-lg border border-gray-100 bg-white px-4 py-3 shadow-sm sm:w-44">
+    <div className="absolute left-0 top-0 h-full w-1 bg-emerald-500" />
+
+    <h3 className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
+      Available Books
+    </h3>
+
+    <p className="mt-1 text-xl font-bold text-emerald-600">
+      {stats.availableBooksCount}
+    </p>
+  </div>
+
+  {/* Total Stock */}
+  <div className="relative w-full overflow-hidden rounded-lg border border-gray-100 bg-white px-4 py-3 shadow-sm sm:w-44">
+    <div className="absolute left-0 top-0 h-full w-1 bg-indigo-500" />
+
+    <h3 className="text-[10px] font-medium uppercase tracking-wide text-gray-400">
+      Total Stock
+    </h3>
+
+    <p className="mt-1 text-xl font-bold text-indigo-600">
+      {stats.totalStockCount}
+    </p>
+  </div>
+</div>
 
       <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
         <BookFilters
