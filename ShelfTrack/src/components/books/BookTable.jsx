@@ -104,11 +104,11 @@ const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
 
                 {/* Actions */}
                 <td className="whitespace-nowrap px-3 py-2">
-                  <div className="flex justify-center gap-1">
+                  <div className="flex justify-center gap-2">
                     <button
                       type="button"
                       onClick={() => onEdit(book)}
-                      className="rounded px-2 py-1 text-[10px] font-medium text-blue-600 transition hover:bg-blue-50"
+                      className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-600 transition-all duration-200 hover:border-blue-300 hover:bg-blue-100 hover:text-blue-700"
                     >
                       Edit
                     </button>
@@ -116,7 +116,7 @@ const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
                     <button
                       type="button"
                       onClick={() => onDelete(book.id)}
-                      className="rounded px-2 py-1 text-[10px] font-medium text-rose-600 transition hover:bg-rose-50"
+                      className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 transition-all duration-200 hover:border-red-300 hover:bg-red-100 hover:text-red-700"
                     >
                       Delete
                     </button>
