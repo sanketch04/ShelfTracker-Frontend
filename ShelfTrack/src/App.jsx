@@ -7,6 +7,7 @@ import AppLayout from "./components/AppLayout";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ManageBooks from "./pages/ManageBooks";
+import ManageMembers from "./pages/ManageMembers";
 
 import "./App.css";
 
@@ -24,6 +25,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/books" element={<ManageBooks />} />
+          <Route path="/members" element={<ManageMembers />} />
         </Route>
 
       </Routes>

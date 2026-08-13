@@ -21,108 +21,45 @@ function Sidebar({ isOpen, onClose }) {
     `;
 
   return (
-    <>
-      {/* Mobile Overlay */}
-      {isOpen && (
-        <div
-          className="
-            fixed
-            inset-0
-            z-40
-            bg-black/50
-            lg:hidden
-          "
-          onClick={onClose}
-        />
-      )}
+    <aside className="w-64 min-h-[calc(100vh-64px)] bg-gray-900 text-white">
+      <div className="p-5">
+
+        <h2 className="text-lg font-semibold mb-6">
+          Menu
+        </h2>
+
+        <nav className="space-y-2">
+
+          {/* Dashboard */}
+          <NavLink
+            to="/dashboard"
+            className="block px-4 py-3 rounded-lg hover:bg-gray-800"
+          >
+            Dashboard
+          </NavLink>
 
 
-      {/* Sidebar */}
-      <aside
-        className={`
-          fixed
-          top-16
-          left-0
-          bottom-0
-          z-50
-          w-64
-          bg-gray-900
-          text-white
-          overflow-y-auto
-          transition-transform
-          duration-300
-          ease-in-out
-
-          lg:sticky
-          lg:top-16
-          lg:h-[calc(100vh-4rem)]
-          lg:translate-x-0
-
-          ${
-            isOpen
-              ? "translate-x-0"
-              : "-translate-x-full"
-          }
-        `}
-      >
-
-        <div className="p-4 sm:p-5">
-
-          {/* Sidebar Header */}
-          <div className="flex items-center justify-between mb-6">
-
-            <h2 className="text-lg font-semibold">
-              Menu
-            </h2>
-
-            {/* Close Button - Mobile */}
-            <button
-              type="button"
-              onClick={onClose}
-              className="
-                lg:hidden
-                flex
-                items-center
-                justify-center
-                w-9
-                h-9
-                rounded-lg
-                hover:bg-gray-800
-              "
-            >
-              <span className="text-xl">
-                ×
-              </span>
-            </button>
-
-          </div>
+          {/* Manage Books */}
+          <NavLink
+            to="/books"
+            className="block px-4 py-3 rounded-lg hover:bg-gray-800"
+          >
+            Manage Books
+          </NavLink>
 
 
-          {/* Navigation */}
-          <nav className="space-y-2">
+          {/* Manage Members */}
+          <NavLink
+            to="/members"
+            className="block px-4 py-3 rounded-lg hover:bg-gray-800"
+          >
+            Manage Members
+          </NavLink>
 
-            <NavLink
-              to="/dashboard"
-              className={linkClass}
-              onClick={onClose}
-            >
-              Dashboard
-            </NavLink>
+        </nav>
 
-            <NavLink
-              to="/books"
-              className={linkClass}
-              onClick={onClose}
-            >
-              Manage Books
-            </NavLink>
-
-          </nav>
-
-        </div>
-
-      </aside>
-    </>
+      </div>
+    </aside>
   );
 }
 
