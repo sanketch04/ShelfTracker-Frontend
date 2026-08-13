@@ -32,11 +32,77 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [historyLoading, setHistoryLoading] = useState(false);
 
+<<<<<<< HEAD
   useEffect(() => {
+=======
+<<<<<<< HEAD
+  useEffect(() => {
+    const fetchDashboardStats = async () => {
+      setLoading(true);
+
+      try {
+        const bookData = await getAllBooks(
+          "",
+          "",
+          null,
+          "",
+          "asc",
+          1,
+          100000
+        );
+
+        const items = bookData?.items || [];
+
+        const issuedBooksCount = items.reduce(
+          (total, book) => total + (book.issuedStock || 0),
+          0
+        );
+
+        const availableBooksCount = items.reduce(
+          (total, book) => total + (book.availableStock || 0),
+          0
+        );
+
+        const totalStockCount = items.reduce(
+          (total, book) => total + (book.totalStock || 0),
+          0
+        );
+
+        const memberData = await getAllMembers("", null, 1, 1);
+
+        setStats({
+          allBooksCount: bookData?.totalCount || 0,
+          issuedBooksCount,
+          availableBooksCount,
+          totalStockCount,
+          overdueCount: 0,
+          membersCount: memberData?.totalCount || 0,
+        });
+      } catch (error) {
+        console.error("Dashboard error:", error);
+        toast.error("Failed to load dashboard statistics.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+=======
+  // =====================================================
+  // FETCH DASHBOARD STATS
+  // =====================================================
+
+  useEffect(() => {
+>>>>>>> d45039231304641afb72877229e4c22f6b1de9e9
+>>>>>>> aeda7aedbd8f4596acf5e89bacb17de50fbf58a0
     fetchDashboardStats();
     fetchIssueHistory();
   }, []);
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> aeda7aedbd8f4596acf5e89bacb17de50fbf58a0
   const fetchDashboardStats = async () => {
     setLoading(true);
 
@@ -184,6 +250,10 @@ const Dashboard = () => {
   // STAT CARDS
   // =====================================================
 
+<<<<<<< HEAD
+=======
+>>>>>>> d45039231304641afb72877229e4c22f6b1de9e9
+>>>>>>> aeda7aedbd8f4596acf5e89bacb17de50fbf58a0
   const cards = [
     {
       title: "All Books",
