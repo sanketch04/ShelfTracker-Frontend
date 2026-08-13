@@ -1,8 +1,8 @@
 const MemberTable = ({ members, loading, onEdit, onDelete }) => {
   return (
     <div className="w-full overflow-x-auto">
-      <table className="min-w-full border-collapse text-left text-xs">
-        {/* HEADER */}
+      <table className="min-w-full border-collapse text-left text-sm">
+       
         <thead className="bg-gray-50">
           <tr className="border-b border-gray-200">
 
@@ -37,10 +37,9 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
           </tr>
         </thead>
 
-        {/* BODY */}
+        
         <tbody>
-
-          {/* LOADING */}
+        
           {loading ? (
             <tr>
               <td
@@ -55,8 +54,7 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
             </tr>
 
           ) : members.length === 0 ? (
-
-            /* NO DATA */
+          
             <tr>
               <td
                 colSpan="7"
@@ -67,25 +65,22 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
             </tr>
 
           ) : (
-
-            /* DATA */
+          
             members.map((member, index) => (
               <tr
                 key={member.id}
                 className="border-b border-gray-200 transition hover:bg-gray-50"
               >
-
-                {/* NUMBER */}
-                <td className="border-r border-gray-200 px-3 py-2.5 text-gray-500">
+              
+                <td className="border-r border-gray-200 px-6 py-4 text-gray-500">
                   {index + 1}
                 </td>
 
-                {/* NAME */}
-                <td className="border-r border-gray-200 px-3 py-2.5">
-                  <div className="flex items-center gap-2">
-
-                    {/* Avatar */}
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-xs font-semibold text-blue-600">
+               
+                <td className="border-r border-gray-200 px-6 py-4">
+                  <div className="flex items-center gap-3">
+                   
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-600">
                       {member.name?.charAt(0)?.toUpperCase()}
                     </div>
 
@@ -96,18 +91,18 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
                   </div>
                 </td>
 
-                {/* EMAIL */}
-                <td className="border-r border-gray-200 px-3 py-2.5 text-gray-600">
+                
+                <td className="border-r border-gray-200 px-6 py-4 text-gray-600">
                   {member.email}
                 </td>
 
-                {/* PHONE */}
-                <td className="border-r border-gray-200 px-3 py-2.5 text-gray-600">
+             
+                <td className="border-r border-gray-200 px-6 py-4 text-gray-600">
                   {member.phoneNumber || "-"}
                 </td>
 
-                {/* GENDER */}
-                <td className="border-r border-gray-200 px-3 py-2.5 text-gray-600">
+             
+                <td className="border-r border-gray-200 px-6 py-4 text-gray-600">
                   {member.gender === 0
                     ? "Male"
                     : member.gender === 1
@@ -115,8 +110,8 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
                       : "Other"}
                 </td>
 
-                {/* STATUS */}
-                <td className="border-r border-gray-200 px-3 py-2.5">
+                
+                <td className="border-r border-gray-200 px-6 py-4">
                   <span
                     className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
                       member.status === 0
@@ -124,7 +119,7 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
                         : "bg-gray-100 text-gray-600"
                     }`}
                   >
-
+                    
                     <span
                       className={`h-1.5 w-1.5 rounded-full ${
                         member.status === 0
@@ -140,12 +135,10 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
                   </span>
                 </td>
 
-                {/* ACTIONS */}
-                <td className="px-3 py-2.5">
-
-                  <div className="flex justify-center gap-1.5">
-
-                    {/* EDIT */}
+                
+                <td className="px-6 py-4">
+                  <div className="flex justify-center gap-2">
+                   
                     <button
                       type="button"
                       onClick={() => onEdit(member)}
@@ -169,7 +162,7 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
                       Edit
                     </button>
 
-                    {/* DELETE */}
+                  
                     <button
                       type="button"
                       onClick={() => onDelete(member.id)}
