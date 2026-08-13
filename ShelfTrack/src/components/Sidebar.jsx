@@ -65,7 +65,7 @@ function Sidebar({ isOpen, onClose }) {
 
         </nav>
 
-        {/* Logout */}
+     
         <div className="mt-8 pt-5 border-t border-gray-700">
 
           <button

@@ -49,12 +49,12 @@ const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
                 key={book.id}
                 className="h-12 transition-colors hover:bg-gray-50"
               >
-                {/* ID */}
+               
                 <td className="whitespace-nowrap px-3 py-2 text-gray-500">
                   {book.id}
                 </td>
 
-                {/* Book Details */}
+               
                 <td className="max-w-[220px] px-3 py-2">
                   <div className="truncate text-xs font-semibold text-gray-800">
                     {book.title}
@@ -68,27 +68,27 @@ const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
                   </div>
                 </td>
 
-                {/* ISBN */}
+               
                 <td className="whitespace-nowrap px-3 py-2 font-mono text-[10px] text-gray-600">
                   {book.isbn}
                 </td>
 
-                {/* Category */}
+              
                 <td className="max-w-[120px] truncate px-3 py-2 text-xs">
                   {book.categoryName || "-"}
                 </td>
 
-                {/* Author */}
+               
                 <td className="max-w-[120px] truncate px-3 py-2 text-xs font-medium text-gray-700">
                   {book.authorName || "-"}
                 </td>
 
-                {/* Total */}
+               
                 <td className="whitespace-nowrap px-3 py-2 text-center text-xs font-medium text-gray-800">
                   {book.totalStock ?? 0}
                 </td>
 
-                {/* Available */}
+               
                 <td className="whitespace-nowrap px-3 py-2 text-center">
                   <span className="inline-flex min-w-7 items-center justify-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-emerald-50 text-emerald-700">
                     {book.availableStock ?? 0}
@@ -102,7 +102,7 @@ const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
                   </span>
                 </td>
 
-                {/* Actions */}
+              
                 <td className="whitespace-nowrap px-3 py-2">
                   <div className="flex justify-center gap-2">
                     <button

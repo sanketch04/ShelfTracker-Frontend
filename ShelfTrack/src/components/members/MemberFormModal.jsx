@@ -15,12 +15,12 @@ const MemberFormModal = ({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6"
       onClick={onClose}
     >
-      {/* MODAL */}
+   
       <div
         className="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* HEADER */}
+       
         <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
           <div>
             <h2 className="text-xl font-semibold text-gray-800">
@@ -34,7 +34,7 @@ const MemberFormModal = ({
             </p>
           </div>
 
-          {/* CLOSE */}
+        
           <button
             type="button"
             onClick={onClose}
@@ -44,11 +44,11 @@ const MemberFormModal = ({
           </button>
         </div>
 
-        {/* FORM */}
+       
         <form onSubmit={onSubmit}>
           <div className="max-h-[70vh] overflow-y-auto px-6 py-5">
 
-            {/* NAME */}
+           
             <div className="mb-4">
               <label className="mb-2 block text-sm font-medium text-gray-700">
                 Name
@@ -66,7 +66,7 @@ const MemberFormModal = ({
               />
             </div>
 
-            {/* EMAIL */}
+          
             <div className="mb-4">
               <label className="mb-2 block text-sm font-medium text-gray-700">
                 Email
@@ -84,7 +84,7 @@ const MemberFormModal = ({
               />
             </div>
 
-            {/* PHONE */}
+            
             <div className="mb-4">
               <label className="mb-2 block text-sm font-medium text-gray-700">
                 Phone Number
@@ -100,10 +100,10 @@ const MemberFormModal = ({
               />
             </div>
 
-            {/* GENDER + STATUS */}
+          
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
-              {/* GENDER */}
+             
               <div>
                 <label className="mb-2 block text-sm font-medium text-gray-700">
                   Gender
@@ -121,7 +121,7 @@ const MemberFormModal = ({
                 </select>
               </div>
 
-              {/* STATUS */}
+             
               <div>
                 <label className="mb-2 block text-sm font-medium text-gray-700">
                   Status
@@ -140,10 +140,10 @@ const MemberFormModal = ({
             </div>
           </div>
 
-          {/* FOOTER */}
+         
           <div className="flex items-center justify-end gap-3 border-t border-gray-200 bg-gray-50 px-6 py-4">
 
-            {/* CANCEL */}
+          
             <button
               type="button"
               onClick={onClose}
@@ -152,7 +152,7 @@ const MemberFormModal = ({
               Cancel
             </button>
 
-            {/* ADD / UPDATE */}
+            
             <button
               type="submit"
               className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"

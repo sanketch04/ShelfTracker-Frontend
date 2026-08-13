@@ -25,19 +25,13 @@ const Dashboard = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // =====================================================
-  // FETCH DASHBOARD DATA
-  // =====================================================
-
+ 
   useEffect(() => {
     const fetchDashboardStats = async () => {
       setLoading(true);
 
       try {
-        // =================================================
-        // BOOK API
-        // =================================================
-
+       
         const bookData = await getAllBooks(
           "",
           "",
@@ -50,51 +44,35 @@ const Dashboard = () => {
 
         const items = bookData?.items || [];
 
-        // =================================================
-        // ISSUED BOOKS
-        // =================================================
-
+      
         const issuedBooksCount = items.reduce(
           (total, book) =>
             total + (book.issuedStock || 0),
           0
         );
 
-        // =================================================
-        // AVAILABLE BOOKS
-        // =================================================
-
+      
         const availableBooksCount = items.reduce(
           (total, book) =>
             total + (book.availableStock || 0),
           0
         );
 
-        // =================================================
-        // TOTAL STOCK
-        // =================================================
-
+        
         const totalStockCount = items.reduce(
           (total, book) =>
             total + (book.totalStock || 0),
           0
         );
 
-        // =================================================
-        // MEMBER API
-        // =================================================
-
-        const memberData = await getAllMembers(
+               const memberData = await getAllMembers(
           "",
           null,
           1,
           1
         );
 
-        // =================================================
-        // SET ALL STATS
-        // =================================================
-
+      
         setStats({
           allBooksCount:
             bookData?.totalCount || 0,
@@ -105,10 +83,10 @@ const Dashboard = () => {
 
           totalStockCount,
 
-          // Overdue API अजून जोडलेला नाही
+          
           overdueCount: 0,
 
-          // Member API मधून actual count
+         
           membersCount:
             memberData?.totalCount || 0,
         });
@@ -129,9 +107,6 @@ const Dashboard = () => {
     fetchDashboardStats();
   }, []);
 
-  // =====================================================
-  // DASHBOARD CARDS
-  // =====================================================
 
   const cards = [
     {
@@ -201,17 +176,11 @@ const Dashboard = () => {
     },
   ];
 
-  // =====================================================
-  // UI
-  // =====================================================
-
+ 
   return (
     <div className="w-full p-0">
 
-      {/* =================================================
-          CARDS
-      ================================================= */}
-
+     
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-6">
 
         {cards.map((card) => {
@@ -240,20 +209,16 @@ const Dashboard = () => {
               `}
             >
 
-              {/* =========================================
-                  LEFT CONTENT
-              ========================================= */}
-
+         
               <div className="min-w-0">
 
-                {/* TITLE */}
+               
 
                 <p className="truncate text-[10px] font-medium uppercase tracking-wide text-gray-400">
                   {card.title}
                 </p>
 
-                {/* COUNT */}
-
+                
                 <p
                   className={`
                     mt-1
@@ -268,10 +233,7 @@ const Dashboard = () => {
 
               </div>
 
-              {/* =========================================
-                  ICON
-              ========================================= */}
-
+           
               <div
                 className={`
                   ml-2

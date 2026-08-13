@@ -15,7 +15,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  // Handle input
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
