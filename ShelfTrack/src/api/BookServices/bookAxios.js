@@ -82,3 +82,13 @@ export const getAllCategories = async () => {
 
   return response.data;
 };
+// GET AVAILABLE BOOK COPIES FOR ISSUE
+export const getAvailableBookCopies = async (bookId) => {
+  const response = await api.get("/BookCopies/available", {
+    params: {
+      bookId,
+    },
+  });
+
+  return response.data;
+};
