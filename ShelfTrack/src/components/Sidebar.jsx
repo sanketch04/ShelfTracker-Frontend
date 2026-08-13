@@ -11,7 +11,7 @@ function Sidebar() {
 
         <nav className="space-y-2">
 
-          <NavLink to="#" className="block px-4 py-3 rounded-lg hover:bg-gray-800">Dashboard</NavLink>
+          <NavLink to="/" className="block px-4 py-3 rounded-lg hover:bg-gray-800">Dashboard</NavLink>
 
          
 
