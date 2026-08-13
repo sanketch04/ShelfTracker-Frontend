@@ -8,6 +8,7 @@ import AppLayout from "./components/AppLayout";
 import "./App.css";
 import Dashboard from "./pages/Dashboard";
 import ManageBooks from "./pages/ManageBooks";
+import ManageMembers from "./pages/ManageMembers";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/books" element={<ManageBooks />} />
+          <Route path="/members" element={<ManageMembers />} />
         </Route>
       </Routes>
     </BrowserRouter>
