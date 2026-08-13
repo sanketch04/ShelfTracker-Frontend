@@ -1,4 +1,10 @@
-const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
+const BookTable = ({
+  books = [],
+  loading = false,
+  onEdit,
+  onDelete,
+  
+}) => {
   const truncateDescription = (text) => {
     if (!text) return "No description provided";
 
