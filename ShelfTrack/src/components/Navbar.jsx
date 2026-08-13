@@ -2,9 +2,6 @@ function Navbar({ onMenuClick }) {
   return (
     <nav
       className="
-        sticky
-        top-0
-        z-40
         h-16
         w-full
         bg-white
@@ -16,9 +13,10 @@ function Navbar({ onMenuClick }) {
         px-3
         sm:px-4
         md:px-6
+        shrink-0
+        z-40
       "
     >
-
       <div className="flex items-center min-w-0">
 
         <button
@@ -65,7 +63,6 @@ function Navbar({ onMenuClick }) {
         </h1>
 
       </div>
-
 
       <div className="flex items-center gap-2 sm:gap-4">
 
