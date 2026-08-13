@@ -1,4 +1,10 @@
-const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
+const BookTable = ({
+  books = [],
+  loading = false,
+  onEdit,
+  onDelete,
+  onIssue,
+}) => {
   const truncateDescription = (text) => {
     if (!text) return "No description provided";
 
@@ -91,6 +97,13 @@ const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
 
                 <td className="px-5 py-4">
                   <div className="flex justify-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => onIssue(book)}
+                      className="rounded-lg px-3 py-1.5 text-xs font-medium text-emerald-600 transition hover:bg-emerald-50"
+                    >
+                      Issue
+                    </button>
                     <button
                       type="button"
                       onClick={() => onEdit(book)}

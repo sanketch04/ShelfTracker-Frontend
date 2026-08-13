@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
+import IssueBookModal from "../components/issues/IssueBookModal";
 import {
   getAllBooks,
   getAllCategories,
@@ -16,13 +16,25 @@ import BookFormModal from "../components/books/BookFormModal";
 import DeleteBookModal from "../components/books/DeleteBookModal";
 
 const ManageBooks = () => {
+  // =========================================================
+  // BOOK DATA
+  // =========================================================
+
   const [books, setBooks] = useState([]);
   const [categories, setCategories] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
+  // =========================================================
+  // FILTERS
+  // =========================================================
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  // =========================================================
+  // PAGINATION
+  // =========================================================
 
   const [pageNumber, setPageNumber] = useState(1);
   const pageSize = 10;
@@ -30,7 +42,10 @@ const ManageBooks = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
- 
+  // =========================================================
+  // BOOK STATISTICS
+  // =========================================================
+
   const [stats, setStats] = useState({
     allBooksCount: 0,
     issuedBooksCount: 0,
@@ -38,10 +53,29 @@ const ManageBooks = () => {
     totalStockCount: 0,
   });
 
+  // =========================================================
+  // BOOK CRUD MODALS
+  // =========================================================
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [editingBookId, setEditingBookId] = useState(null);
+
   const [editingBookIssuedStock, setEditingBookIssuedStock] = useState(0);
+
   const [deletingBookId, setDeletingBookId] = useState(null);
+
+  // =========================================================
+  // B1 - ISSUE BOOK
+  // =========================================================
+
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  const [isIssueModalOpen, setIsIssueModalOpen] = useState(false);
+
+  // =========================================================
+  // BOOK FORM
+  // =========================================================
 
   const [formData, setFormData] = useState({
     title: "",
@@ -52,7 +86,10 @@ const ManageBooks = () => {
     stock: 0,
   });
 
- 
+  // =========================================================
+  // FETCH CATEGORIES
+  // =========================================================
+
   const fetchCategories = async () => {
     try {
       const data = await getAllCategories();
@@ -60,15 +97,28 @@ const ManageBooks = () => {
       setCategories(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error(error);
+
       setCategories([]);
+
       toast.error("Failed to load categories.");
     }
   };
 
+  // =========================================================
+  // FETCH BOOK STATISTICS
+  // =========================================================
 
   const fetchStats = async () => {
     try {
-      const data = await getAllBooks("", "", null, "", "asc", 1, 100000);
+      const data = await getAllBooks(
+        "",
+        "",
+        null,
+        "",
+        "asc",
+        1,
+        100000,
+      );
 
       const items = data?.items || [];
 
@@ -95,10 +145,14 @@ const ManageBooks = () => {
       });
     } catch (error) {
       console.error(error);
+
       toast.error("Failed to load book statistics.");
     }
   };
 
+  // =========================================================
+  // FETCH BOOKS
+  // =========================================================
 
   const fetchBooks = async () => {
     setLoading(true);
@@ -115,13 +169,17 @@ const ManageBooks = () => {
       );
 
       setBooks(data?.items || []);
+
       setTotalCount(data?.totalCount || 0);
+
       setTotalPages(data?.totalPages || 1);
     } catch (error) {
       console.error(error);
 
       setBooks([]);
+
       setTotalCount(0);
+
       setTotalPages(1);
 
       toast.error("Failed to load books.");
@@ -130,28 +188,46 @@ const ManageBooks = () => {
     }
   };
 
+  // =========================================================
+  // INITIAL LOAD
+  // =========================================================
 
   useEffect(() => {
     fetchCategories();
     fetchStats();
   }, []);
 
+  // =========================================================
+  // LOAD BOOKS WHEN FILTER/PAGE CHANGES
+  // =========================================================
+
   useEffect(() => {
     fetchBooks();
   }, [searchTerm, selectedCategory, pageNumber]);
 
+  // =========================================================
+  // SEARCH
+  // =========================================================
 
   const handleSearchChange = (value) => {
     setSearchTerm(value);
+
     setPageNumber(1);
   };
 
+  // =========================================================
+  // CATEGORY FILTER
+  // =========================================================
 
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
+
     setPageNumber(1);
   };
 
+  // =========================================================
+  // BOOK FORM INPUT
+  // =========================================================
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -168,9 +244,13 @@ const ManageBooks = () => {
     }));
   };
 
+  // =========================================================
+  // ADD BOOK
+  // =========================================================
 
   const handleOpenAddModal = () => {
     setEditingBookId(null);
+
     setEditingBookIssuedStock(0);
 
     setFormData({
@@ -185,51 +265,93 @@ const ManageBooks = () => {
     setIsModalOpen(true);
   };
 
+  // =========================================================
+  // EDIT BOOK
+  // =========================================================
 
   const handleOpenEditModal = (book) => {
     const matchedCategory = categories.find(
       (category) =>
-        category.name?.toLowerCase() === book.categoryName?.toLowerCase(),
+        category.name?.toLowerCase() ===
+        book.categoryName?.toLowerCase(),
     );
 
     setEditingBookId(book.id);
+
     setEditingBookIssuedStock(book.issuedStock ?? 0);
 
     setFormData({
       title: book.title || "",
+
       description: book.description || "",
+
       isbn: book.isbn || "",
 
       categoryId: matchedCategory?.id || "",
 
       authorName: book.authorName || "",
+
       stock: book.totalStock ?? 0,
     });
 
     setIsModalOpen(true);
   };
 
+  // =========================================================
+  // B1 - OPEN ISSUE BOOK MODAL
+  // =========================================================
+
+  const handleIssue = (book) => {
+    setSelectedBook(book);
+
+    setIsIssueModalOpen(true);
+  };
+
+  // =========================================================
+  // CLOSE BOOK FORM MODAL
+  // =========================================================
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+
     setEditingBookId(null);
   };
 
+  // =========================================================
+  // B1 - CLOSE ISSUE MODAL
+  // =========================================================
+
+  const handleCloseIssueModal = () => {
+    setIsIssueModalOpen(false);
+
+    setSelectedBook(null);
+  };
+
+  // =========================================================
+  // CREATE / UPDATE BOOK
+  // =========================================================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.categoryId) {
       toast.error("Please select a category.");
+
       return;
     }
 
-    if (editingBookId && Number(formData.stock) < editingBookIssuedStock) {
+    if (
+      editingBookId &&
+      Number(formData.stock) < editingBookIssuedStock
+    ) {
       toast.error(
         `Stock cannot be less than issued stock. Currently ${editingBookIssuedStock} ${
-          editingBookIssuedStock === 1 ? "copy is" : "copies are"
+          editingBookIssuedStock === 1
+            ? "copy is"
+            : "copies are"
         } issued.`,
       );
+
       return;
     }
 
@@ -259,12 +381,15 @@ const ManageBooks = () => {
       }
 
       handleCloseModal();
+
       await fetchBooks();
+
       await fetchStats();
     } catch (error) {
       console.error(error);
 
       const serverMessage = error?.response?.data?.message;
+
       const status = error?.response?.status;
 
       if (serverMessage) {
@@ -274,11 +399,16 @@ const ManageBooks = () => {
           "Operation failed. This ISBN may already be in use, or the stock change isn't allowed.",
         );
       } else {
-        toast.error("Operation failed. Please try again.");
+        toast.error(
+          "Operation failed. Please try again.",
+        );
       }
     }
   };
 
+  // =========================================================
+  // DELETE BOOK
+  // =========================================================
 
   const handleDelete = async () => {
     if (!deletingBookId) return;
@@ -300,10 +430,16 @@ const ManageBooks = () => {
     } catch (error) {
       console.error(error);
 
-      toast.error(error?.response?.data?.message || "Failed to delete book.");
+      toast.error(
+        error?.response?.data?.message ||
+          "Failed to delete book.",
+      );
     }
   };
 
+  // =========================================================
+  // PAGINATION - PREVIOUS
+  // =========================================================
 
   const handlePreviousPage = () => {
     if (pageNumber > 1) {
@@ -311,58 +447,92 @@ const ManageBooks = () => {
     }
   };
 
+  // =========================================================
+  // PAGINATION - NEXT
+  // =========================================================
+
   const handleNextPage = () => {
     if (pageNumber < totalPages) {
       setPageNumber((previous) => previous + 1);
     }
   };
 
+  // =========================================================
+  // UI
+  // =========================================================
 
   return (
     <div className="space-y-5 p-0">
+
+      {/* PAGE TITLE */}
+
       <h1 className="text-center text-2xl font-bold text-gray-800">
         Manage Books
       </h1>
 
+      {/* =====================================================
+          BOOK STATISTICS
+      ====================================================== */}
+
       <div className="flex flex-wrap gap-4">
+
+        {/* ALL BOOKS */}
+
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
             All Books
           </h3>
+
           <p className="mt-2 text-2xl font-bold text-blue-600">
             {stats.allBooksCount}
           </p>
         </div>
 
+        {/* ISSUED */}
+
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
             Issued Books
           </h3>
+
           <p className="mt-2 text-2xl font-bold text-amber-500">
             {stats.issuedBooksCount}
           </p>
         </div>
 
+        {/* AVAILABLE */}
+
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
             Available Books
           </h3>
+
           <p className="mt-2 text-2xl font-bold text-emerald-600">
             {stats.availableBooksCount}
           </p>
         </div>
 
+        {/* TOTAL STOCK */}
+
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
             Total Stock
           </h3>
+
           <p className="mt-2 text-2xl font-bold text-indigo-600">
             {stats.totalStockCount}
           </p>
         </div>
       </div>
 
+      {/* =====================================================
+          BOOK TABLE SECTION
+      ====================================================== */}
+
       <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
+
+        {/* FILTERS */}
+
         <BookFilters
           searchTerm={searchTerm}
           selectedCategory={selectedCategory}
@@ -372,12 +542,17 @@ const ManageBooks = () => {
           onAddBook={handleOpenAddModal}
         />
 
+        {/* BOOK TABLE */}
+
         <BookTable
           books={books}
           loading={loading}
           onEdit={handleOpenEditModal}
           onDelete={setDeletingBookId}
+          onIssue={handleIssue}
         />
+
+        {/* PAGINATION */}
 
         <BookPagination
           pageNumber={pageNumber}
@@ -389,6 +564,10 @@ const ManageBooks = () => {
         />
       </div>
 
+      {/* =====================================================
+          ADD / EDIT BOOK MODAL
+      ====================================================== */}
+
       <BookFormModal
         isOpen={isModalOpen}
         editingBookId={editingBookId}
@@ -399,11 +578,20 @@ const ManageBooks = () => {
         onClose={handleCloseModal}
       />
 
-      <DeleteBookModal
-        deletingBookId={deletingBookId}
-        onCancel={() => setDeletingBookId(null)}
-        onConfirm={handleDelete}
-      />
+      {/* =====================================================
+          DELETE BOOK MODAL
+      ====================================================== */}
+<DeleteBookModal
+  deletingBookId={deletingBookId}
+  onCancel={() => setDeletingBookId(null)}
+  onConfirm={handleDelete}
+/>
+
+<IssueBookModal
+  isOpen={isIssueModalOpen}
+  book={selectedBook}
+  onClose={handleCloseIssueModal}
+/>
     </div>
   );
 };
