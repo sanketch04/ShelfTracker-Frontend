@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ManageBooks from "./pages/ManageBooks";
 import ManageMembers from "./pages/ManageMembers";
+import IssueDesk from "./pages/IssueDesk";
 
 import "./App.css";
 
@@ -17,17 +18,23 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} />
 
       <Routes>
+        {/* LOGIN */}
 
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         <Route path="/login" element={<Login />} />
 
+        {/* APPLICATION LAYOUT */}
+
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/books" element={<ManageBooks />} />
-          <Route path="/members" element={<ManageMembers />} />
-        </Route>
 
+          <Route path="/books" element={<ManageBooks />} />
+
+          <Route path="/members" element={<ManageMembers />} />
+
+          <Route path="/issue-desk" element={<IssueDesk />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
