@@ -19,10 +19,8 @@ function Navbar({ onMenuClick }) {
       "
     >
 
-      {/* Left Side */}
       <div className="flex items-center min-w-0">
 
-        {/* Mobile Menu */}
         <button
           type="button"
           onClick={onMenuClick}
@@ -69,7 +67,6 @@ function Navbar({ onMenuClick }) {
       </div>
 
 
-      {/* Right Side */}
       <div className="flex items-center gap-2 sm:gap-4">
 
         <span className="hidden md:block text-sm text-gray-600">
