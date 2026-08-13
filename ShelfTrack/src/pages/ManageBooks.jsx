@@ -320,10 +320,10 @@ const ManageBooks = () => {
 
   return (
     <div className="space-y-5 p-0">
-      <h1 className="text-center text-2xl font-bold text-gray-800">
+     
+    <h1 className=" text-1xl font-bold text-gray-800">
         Manage Books
       </h1>
-
       <div className="flex flex-wrap gap-4">
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">

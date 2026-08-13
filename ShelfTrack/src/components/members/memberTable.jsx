@@ -109,17 +109,15 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
                 {/* STATUS */}
                 <td className="border-r border-gray-200 px-6 py-4">
                   <span
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
-                      member.status === 0
+                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${member.status === 0
                         ? "bg-green-100 text-green-700"
                         : "bg-gray-100 text-gray-600"
-                    }`}
+                      }`}
                   >
                     {/* Status dot */}
                     <span
-                      className={`h-1.5 w-1.5 rounded-full ${
-                        member.status === 0 ? "bg-green-600" : "bg-gray-500"
-                      }`}
+                      className={`h-1.5 w-1.5 rounded-full ${member.status === 0 ? "bg-green-600" : "bg-gray-500"
+                        }`}
                     ></span>
 
                     {member.status === 0 ? "Active" : "Inactive"}
@@ -133,23 +131,8 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
                     <button
                       type="button"
                       onClick={() => onEdit(member)}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-600 transition hover:bg-blue-100"
+                      className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-600 transition-all duration-200 hover:border-blue-300 hover:bg-blue-100 hover:text-blue-700"
                     >
-                      {/* Edit Icon */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.5-9.5a2.121 2.121 0 013 3L12 16l-4 1 1-4 9.5-9.5z"
-                        />
-                      </svg>
                       Edit
                     </button>
 
@@ -157,23 +140,8 @@ const MemberTable = ({ members, loading, onEdit, onDelete }) => {
                     <button
                       type="button"
                       onClick={() => onDelete(member.id)}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-100"
+                      className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 transition-all duration-200 hover:border-red-300 hover:bg-red-100 hover:text-red-700"
                     >
-                      {/* Delete Icon */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-8 0h10"
-                        />
-                      </svg>
                       Delete
                     </button>
                   </div>

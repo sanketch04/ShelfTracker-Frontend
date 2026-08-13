@@ -14,87 +14,101 @@ const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
   const bookList = Array.isArray(books) ? books : [];
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[1100px] border-collapse text-left">
+    <div className="w-full overflow-x-auto">
+      <table className="w-full min-w-[850px] border-collapse text-left text-xs">
         <thead>
-          <tr className="border-y border-gray-100 bg-gray-50/80 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-            <th className="px-5 py-4">ID</th>
-            <th className="px-5 py-4">Book Details</th>
-            <th className="px-5 py-4">ISBN</th>
-            <th className="px-5 py-4">Category</th>
-            <th className="px-5 py-4">Author</th>
-            <th className="px-5 py-4 text-center">Total</th>
-            <th className="px-5 py-4 text-center">Available</th>
-            <th className="px-5 py-4 text-center">Issued</th>
-            <th className="px-5 py-4 text-center">Actions</th>
+          <tr className="border-y border-gray-100 bg-gray-50/80 text-[10px] font-semibold uppercase tracking-wide text-gray-400">
+            <th className="px-3 py-2.5">ID</th>
+            <th className="px-3 py-2.5">Book Details</th>
+            <th className="px-3 py-2.5">ISBN</th>
+            <th className="px-3 py-2.5">Category</th>
+            <th className="px-3 py-2.5">Author</th>
+            <th className="px-3 py-2.5 text-center">Total</th>
+            <th className="px-3 py-2.5 text-center">Available</th>
+            <th className="px-3 py-2.5 text-center">Issued</th>
+            <th className="px-3 py-2.5 text-center">Actions</th>
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-gray-100 text-sm text-gray-600">
+        <tbody className="divide-y divide-gray-100 text-xs text-gray-600">
           {loading ? (
             <tr>
-              <td colSpan="9" className="py-16 text-center text-gray-500">
+              <td colSpan="9" className="py-8 text-center text-gray-500">
                 Loading books...
               </td>
             </tr>
           ) : bookList.length === 0 ? (
             <tr>
-              <td colSpan="9" className="py-16 text-center text-gray-500">
+              <td colSpan="9" className="py-8 text-center text-gray-500">
                 No books found.
               </td>
             </tr>
           ) : (
             bookList.map((book) => (
-              <tr key={book.id} className="transition-colors hover:bg-gray-50">
-                <td className="whitespace-nowrap px-5 py-4 text-gray-500">
+              <tr
+                key={book.id}
+                className="h-12 transition-colors hover:bg-gray-50"
+              >
+                {/* ID */}
+                <td className="whitespace-nowrap px-3 py-2 text-gray-500">
                   {book.id}
                 </td>
 
-                <td className="min-w-[280px] px-5 py-4">
-                  <div className="font-semibold text-gray-800">
+                {/* Book Details */}
+                <td className="max-w-[220px] px-3 py-2">
+                  <div className="truncate text-xs font-semibold text-gray-800">
                     {book.title}
                   </div>
 
                   <div
                     title={book.description || ""}
-                    className="mt-1 text-xs text-gray-400"
+                    className="mt-0.5 truncate text-[10px] text-gray-400"
                   >
                     {truncateDescription(book.description)}
                   </div>
                 </td>
 
-                <td className="whitespace-nowrap px-5 py-4 font-mono text-xs text-gray-600">
+                {/* ISBN */}
+                <td className="whitespace-nowrap px-3 py-2 font-mono text-[10px] text-gray-600">
                   {book.isbn}
                 </td>
 
-                <td className="px-5 py-4">{book.categoryName || "-"}</td>
+                {/* Category */}
+                <td className="max-w-[120px] truncate px-3 py-2 text-xs">
+                  {book.categoryName || "-"}
+                </td>
 
-                <td className="px-5 py-4 font-medium text-gray-700">
+                {/* Author */}
+                <td className="max-w-[120px] truncate px-3 py-2 text-xs font-medium text-gray-700">
                   {book.authorName || "-"}
                 </td>
 
-                <td className="px-5 py-4 text-center font-medium text-gray-800">
+                {/* Total */}
+                <td className="whitespace-nowrap px-3 py-2 text-center text-xs font-medium text-gray-800">
                   {book.totalStock ?? 0}
                 </td>
 
-                <td className="px-5 py-4 text-center">
-                  <span className="inline-flex min-w-9 items-center justify-center rounded-md bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700">
+                {/* Available */}
+                <td className="whitespace-nowrap px-3 py-2 text-center">
+                  <span className="inline-flex min-w-7 items-center justify-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-emerald-50 text-emerald-700">
                     {book.availableStock ?? 0}
                   </span>
                 </td>
 
-                <td className="px-5 py-4 text-center">
-                  <span className="inline-flex min-w-9 items-center justify-center rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700">
+                {/* Issued */}
+                <td className="whitespace-nowrap px-3 py-2 text-center">
+                  <span className="inline-flex min-w-7 items-center justify-center rounded px-1.5 py-0.5 text-[10px] font-medium bg-amber-50 text-amber-700">
                     {book.issuedStock ?? 0}
                   </span>
                 </td>
 
-                <td className="px-5 py-4">
+                {/* Actions */}
+                <td className="whitespace-nowrap px-3 py-2">
                   <div className="flex justify-center gap-2">
                     <button
                       type="button"
                       onClick={() => onEdit(book)}
-                      className="rounded-lg px-3 py-1.5 text-xs font-medium text-blue-600 transition hover:bg-blue-50"
+                      className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-600 transition-all duration-200 hover:border-blue-300 hover:bg-blue-100 hover:text-blue-700"
                     >
                       Edit
                     </button>
@@ -102,7 +116,7 @@ const BookTable = ({ books = [], loading = false, onEdit, onDelete }) => {
                     <button
                       type="button"
                       onClick={() => onDelete(book.id)}
-                      className="rounded-lg px-3 py-1.5 text-xs font-medium text-rose-600 transition hover:bg-rose-50"
+                      className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 transition-all duration-200 hover:border-red-300 hover:bg-red-100 hover:text-red-700"
                     >
                       Delete
                     </button>
