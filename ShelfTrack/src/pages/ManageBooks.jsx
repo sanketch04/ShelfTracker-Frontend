@@ -463,17 +463,10 @@ const ManageBooks = () => {
 
   return (
     <div className="space-y-5 p-0">
-
-      {/* PAGE TITLE */}
-
-      <h1 className="text-center text-2xl font-bold text-gray-800">
+     
+    <h1 className=" text-1xl font-bold text-gray-800">
         Manage Books
       </h1>
-
-      {/* =====================================================
-          BOOK STATISTICS
-      ====================================================== */}
-
       <div className="flex flex-wrap gap-4">
 
         {/* ALL BOOKS */}

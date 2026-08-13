@@ -14,13 +14,11 @@ const DeleteMemberModal = ({
       onClick={onCancel}
     >
 
-      {/* Modal */}
       <div
         className="w-full max-w-md rounded-2xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
 
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
 
           <h2 className="text-lg font-semibold text-gray-800">
@@ -43,7 +41,6 @@ const DeleteMemberModal = ({
 
           <div className="flex items-start gap-4">
 
-            {/* Warning Icon */}
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-100">
 
               <svg
@@ -64,7 +61,6 @@ const DeleteMemberModal = ({
             </div>
 
 
-            {/* Message */}
             <div>
 
               <h3 className="text-base font-semibold text-gray-800">
@@ -83,10 +79,8 @@ const DeleteMemberModal = ({
         </div>
 
 
-        {/* Footer */}
         <div className="flex justify-end gap-3 border-t border-gray-200 px-6 py-4">
 
-          {/* Cancel */}
           <button
             type="button"
             onClick={onCancel}
@@ -96,7 +90,6 @@ const DeleteMemberModal = ({
           </button>
 
 
-          {/* Delete */}
           <button
             type="button"
             onClick={onConfirm}
