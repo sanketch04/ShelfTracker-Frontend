@@ -11,7 +11,9 @@ function AppLayout() {
 
       <div className="flex">
         <Sidebar />
-     <main className="flex-1 p-6">
+
+        
+     <main className="flex-1 p-3">
        <Outlet />
      </main>
 
