@@ -8,13 +8,13 @@ function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen w-full bg-gray-100 overflow-x-hidden">
+    <div className="h-screen w-full bg-gray-100 overflow-hidden">
 
       <Navbar
         onMenuClick={() => setSidebarOpen(true)}
       />
 
-      <div className="flex w-full">
+      <div className="flex h-[calc(100vh-64px)] w-full">
 
         <Sidebar
           isOpen={sidebarOpen}
@@ -26,6 +26,8 @@ function AppLayout() {
             min-w-0
             flex-1
             w-full
+            overflow-y-auto
+            overflow-x-hidden
             p-3
             sm:p-4
             md:p-5

@@ -36,7 +36,7 @@ const DeleteMemberModal = ({
         </div>
 
 
-        {/* Body */}
+       
         <div className="px-6 py-6">
 
           <div className="flex items-start gap-4">

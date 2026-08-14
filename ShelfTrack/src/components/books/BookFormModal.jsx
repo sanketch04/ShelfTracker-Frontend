@@ -15,7 +15,7 @@ const BookFormModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4 backdrop-blur-[2px]">
       <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
-        {/* HEADER */}
+        {}
         <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
           <h3 className="text-base font-bold text-gray-800">
             {isEditing ? "Edit Book" : "Add New Book"}
@@ -42,7 +42,7 @@ const BookFormModal = ({
           </button>
         </div>
 
-        {/* FORM */}
+        {}
         <form
           onSubmit={onSubmit}
           className="max-h-[75vh] overflow-y-auto px-6 py-5"
@@ -154,7 +154,7 @@ const BookFormModal = ({
             </div>
           </div>
 
-          {/* FOOTER */}
+          {}
           <div className="mt-6 flex justify-end gap-3">
             <button
               type="button"

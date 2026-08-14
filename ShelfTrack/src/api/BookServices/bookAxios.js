@@ -83,6 +83,7 @@ export const getAllCategories = async () => {
   return response.data;
 };
 
+
 export const getAvailableBookCopies = async (bookId) => {
   const response = await api.get("/BookCopies/available", {
     params: {

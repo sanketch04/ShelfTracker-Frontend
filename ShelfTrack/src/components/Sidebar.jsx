@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Sidebar({ isOpen, onClose }) {
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -32,8 +31,18 @@ function Sidebar({ isOpen, onClose }) {
     `;
 
   return (
-    <aside className="w-64 min-h-[calc(100vh-64px)] bg-gray-900 text-white">
-
+    <aside
+      className="
+        hidden
+        lg:block
+        w-64
+        h-full
+        shrink-0
+        overflow-y-auto
+        bg-gray-900
+        text-white
+      "
+    >
       <div className="p-5">
 
         <h2 className="text-lg font-semibold mb-6">
@@ -65,7 +74,6 @@ function Sidebar({ isOpen, onClose }) {
 
         </nav>
 
-        {/* Logout */}
         <div className="mt-8 pt-5 border-t border-gray-700">
 
           <button
@@ -90,7 +98,6 @@ function Sidebar({ isOpen, onClose }) {
         </div>
 
       </div>
-
     </aside>
   );
 }
