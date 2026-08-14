@@ -7,6 +7,8 @@ import ManageMembers from "./pages/ManageMembers";
 
 import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import IssueDesk from "./pages/IssueDesk";
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/books" element={<ManageBooks />} />
             <Route path="/members" element={<ManageMembers />} />
+             <Route path="/issue-desk" element={<IssueDesk />} />
           </Route>
         </Route>
       </Routes>
