@@ -36,16 +36,10 @@ const Dashboard = () => {
   const [selectedStatus, setSelectedStatus] = useState(""); // "" | "Issued" | "Returned" | "Overdue"
   const [loading, setLoading] = useState(false);
   const [historyLoading, setHistoryLoading] = useState(false);
-
-  // =====================================================
-  // INITIAL LOAD
-  // =====================================================
-
   useEffect(() => {
     fetchDashboardStats();
   }, []);
 
-  // Fetch history when searchQuery or selectedStatus changes (with 300ms debounce)
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       fetchIssueHistory(searchQuery, selectedStatus);
@@ -53,10 +47,6 @@ const Dashboard = () => {
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery, selectedStatus]);
-
-  // =====================================================
-  // FETCH DASHBOARD STATS
-  // =====================================================
 
   const fetchDashboardStats = async () => {
     setLoading(true);
@@ -101,10 +91,6 @@ const Dashboard = () => {
     }
   };
 
-  // =====================================================
-  // FETCH ISSUE HISTORY
-  // =====================================================
-
   const fetchIssueHistory = async (search = "", status = "") => {
     setHistoryLoading(true);
 
@@ -127,10 +113,6 @@ const Dashboard = () => {
       setHistoryLoading(false);
     }
   };
-
-  // =====================================================
-  // STAT CARDS
-  // =====================================================
 
   const cards = [
     {
@@ -183,15 +165,9 @@ const Dashboard = () => {
     },
   ];
 
-  // =====================================================
-  // RENDER
-  // =====================================================
 
   return (
     <div className="w-full space-y-4">
-      {/* =================================================
-          TOP STATISTICS
-      ================================================= */}
       <div className="grid grid-cols-2 gap-3 xl:grid-cols-6">
         {cards.map((card) => {
           const Icon = card.icon;
@@ -254,14 +230,7 @@ const Dashboard = () => {
           );
         })}
       </div>
-
-      {/* =================================================
-          MAIN DASHBOARD CONTENT
-      ================================================= */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* =================================================
-            ISSUE DESK CARD
-        ================================================= */}
         <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
@@ -278,7 +247,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* ISSUE COUNT */}
           <div className="mt-4 rounded-lg bg-amber-50 p-3">
             <div className="flex items-center justify-between">
               <div>
@@ -290,8 +258,6 @@ const Dashboard = () => {
               <BookMarked size={22} className="text-amber-500" />
             </div>
           </div>
-
-          {/* OVERDUE COUNT */}
           <div className="mt-3 rounded-lg bg-red-50 p-3">
             <div className="flex items-center justify-between">
               <div>
@@ -303,8 +269,6 @@ const Dashboard = () => {
               <AlertTriangle size={22} className="text-red-600" />
             </div>
           </div>
-
-          {/* ACTION BUTTON */}
           <button
             type="button"
             onClick={() => {
@@ -327,12 +291,8 @@ const Dashboard = () => {
             Open Issue Desk
           </button>
         </div>
-
-        {/* =================================================
-            ISSUE HISTORY TABLE WITH SEARCH & STATUS FILTERS
-        ================================================= */}
         <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm lg:col-span-2">
-          {/* HEADER & CONTROLS */}
+         
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-base font-semibold text-gray-800">
@@ -344,7 +304,7 @@ const Dashboard = () => {
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              {/* SEARCH INPUT */}
+             
               <div className="relative flex-1 sm:flex-initial">
                 <Search
                   size={14}
@@ -387,7 +347,6 @@ const Dashboard = () => {
                 )}
               </div>
 
-              {/* STATUS FILTER SELECT */}
               <div className="relative">
                 <select
                   value={selectedStatus}
@@ -420,7 +379,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* HISTORY TABLE */}
           <div className="mt-4 overflow-x-auto">
             <table className="w-full text-left">
               <thead>
@@ -490,7 +448,6 @@ const Dashboard = () => {
                           </div>
                         </td>
 
-                        {/* MEMBER */}
                         <td className="px-2 py-3">
                           <div className="flex items-center gap-2">
                             <UserRound
@@ -503,7 +460,7 @@ const Dashboard = () => {
                           </div>
                         </td>
 
-                        {/* DUE DATE */}
+                       
                         <td className="px-2 py-3">
                           <span className="text-xs text-gray-500">
                             {item.dueDate
@@ -512,7 +469,7 @@ const Dashboard = () => {
                           </span>
                         </td>
 
-                        {/* STATUS */}
+                       
                         <td className="px-2 py-3">
                           {isReturned ? (
                             <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-medium text-emerald-600">

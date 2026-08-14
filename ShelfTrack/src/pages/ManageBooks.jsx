@@ -16,25 +16,16 @@ import BookFormModal from "../components/books/BookFormModal";
 import DeleteBookModal from "../components/books/DeleteBookModal";
 
 const ManageBooks = () => {
-  // =========================================================
-  // BOOK DATA
-  // =========================================================
 
   const [books, setBooks] = useState([]);
   const [categories, setCategories] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
-  // =========================================================
-  // FILTERS
-  // =========================================================
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // =========================================================
-  // PAGINATION
-  // =========================================================
 
   const [pageNumber, setPageNumber] = useState(1);
   const pageSize = 10;
@@ -42,9 +33,7 @@ const ManageBooks = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
-  // =========================================================
-  // BOOK STATISTICS
-  // =========================================================
+
 
   const [stats, setStats] = useState({
     allBooksCount: 0,
@@ -53,9 +42,7 @@ const ManageBooks = () => {
     totalStockCount: 0,
   });
 
-  // =========================================================
-  // BOOK CRUD MODALS
-  // =========================================================
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -65,17 +52,13 @@ const ManageBooks = () => {
 
   const [deletingBookId, setDeletingBookId] = useState(null);
 
-  // =========================================================
-  // B1 - ISSUE BOOK
-  // =========================================================
+
 
   const [selectedBook, setSelectedBook] = useState(null);
 
   const [isIssueModalOpen, setIsIssueModalOpen] = useState(false);
 
-  // =========================================================
-  // BOOK FORM
-  // =========================================================
+
 
   const [formData, setFormData] = useState({
     title: "",
@@ -86,9 +69,6 @@ const ManageBooks = () => {
     stock: 0,
   });
 
-  // =========================================================
-  // FETCH CATEGORIES
-  // =========================================================
 
   const fetchCategories = async () => {
     try {
@@ -104,9 +84,7 @@ const ManageBooks = () => {
     }
   };
 
-  // =========================================================
-  // FETCH BOOK STATISTICS
-  // =========================================================
+
 
   const fetchStats = async () => {
     try {
@@ -150,9 +128,7 @@ const ManageBooks = () => {
     }
   };
 
-  // =========================================================
-  // FETCH BOOKS
-  // =========================================================
+
 
   const fetchBooks = async () => {
     setLoading(true);
@@ -188,26 +164,19 @@ const ManageBooks = () => {
     }
   };
 
-  // =========================================================
-  // INITIAL LOAD
-  // =========================================================
+
 
   useEffect(() => {
     fetchCategories();
     fetchStats();
   }, []);
 
-  // =========================================================
-  // LOAD BOOKS WHEN FILTER/PAGE CHANGES
-  // =========================================================
+
 
   useEffect(() => {
     fetchBooks();
   }, [searchTerm, selectedCategory, pageNumber]);
 
-  // =========================================================
-  // SEARCH
-  // =========================================================
 
   const handleSearchChange = (value) => {
     setSearchTerm(value);
@@ -215,9 +184,7 @@ const ManageBooks = () => {
     setPageNumber(1);
   };
 
-  // =========================================================
-  // CATEGORY FILTER
-  // =========================================================
+
 
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
@@ -225,9 +192,7 @@ const ManageBooks = () => {
     setPageNumber(1);
   };
 
-  // =========================================================
-  // BOOK FORM INPUT
-  // =========================================================
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -244,9 +209,7 @@ const ManageBooks = () => {
     }));
   };
 
-  // =========================================================
-  // ADD BOOK
-  // =========================================================
+
 
   const handleOpenAddModal = () => {
     setEditingBookId(null);
@@ -265,9 +228,6 @@ const ManageBooks = () => {
     setIsModalOpen(true);
   };
 
-  // =========================================================
-  // EDIT BOOK
-  // =========================================================
 
   const handleOpenEditModal = (book) => {
     const matchedCategory = categories.find(
@@ -297,9 +257,6 @@ const ManageBooks = () => {
     setIsModalOpen(true);
   };
 
-  // =========================================================
-  // B1 - OPEN ISSUE BOOK MODAL
-  // =========================================================
 
   const handleIssue = (book) => {
     setSelectedBook(book);
@@ -307,9 +264,7 @@ const ManageBooks = () => {
     setIsIssueModalOpen(true);
   };
 
-  // =========================================================
-  // CLOSE BOOK FORM MODAL
-  // =========================================================
+
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -317,9 +272,7 @@ const ManageBooks = () => {
     setEditingBookId(null);
   };
 
-  // =========================================================
-  // B1 - CLOSE ISSUE MODAL
-  // =========================================================
+
 
   const handleCloseIssueModal = () => {
     setIsIssueModalOpen(false);
@@ -327,9 +280,7 @@ const ManageBooks = () => {
     setSelectedBook(null);
   };
 
-  // =========================================================
-  // CREATE / UPDATE BOOK
-  // =========================================================
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -345,10 +296,9 @@ const ManageBooks = () => {
       Number(formData.stock) < editingBookIssuedStock
     ) {
       toast.error(
-        `Stock cannot be less than issued stock. Currently ${editingBookIssuedStock} ${
-          editingBookIssuedStock === 1
-            ? "copy is"
-            : "copies are"
+        `Stock cannot be less than issued stock. Currently ${editingBookIssuedStock} ${editingBookIssuedStock === 1
+          ? "copy is"
+          : "copies are"
         } issued.`,
       );
 
@@ -406,9 +356,7 @@ const ManageBooks = () => {
     }
   };
 
-  // =========================================================
-  // DELETE BOOK
-  // =========================================================
+
 
   const handleDelete = async () => {
     if (!deletingBookId) return;
@@ -432,14 +380,12 @@ const ManageBooks = () => {
 
       toast.error(
         error?.response?.data?.message ||
-          "Failed to delete book.",
+        "Failed to delete book.",
       );
     }
   };
 
-  // =========================================================
-  // PAGINATION - PREVIOUS
-  // =========================================================
+
 
   const handlePreviousPage = () => {
     if (pageNumber > 1) {
@@ -447,9 +393,7 @@ const ManageBooks = () => {
     }
   };
 
-  // =========================================================
-  // PAGINATION - NEXT
-  // =========================================================
+
 
   const handleNextPage = () => {
     if (pageNumber < totalPages) {
@@ -457,19 +401,16 @@ const ManageBooks = () => {
     }
   };
 
-  // =========================================================
-  // UI
-  // =========================================================
+
 
   return (
     <div className="space-y-5 p-0">
-     
-    <h1 className=" text-1xl font-bold text-gray-800">
+
+      <h1 className=" text-1xl font-bold text-gray-800">
         Manage Books
       </h1>
       <div className="flex flex-wrap gap-4">
 
-        {/* ALL BOOKS */}
 
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
@@ -481,7 +422,7 @@ const ManageBooks = () => {
           </p>
         </div>
 
-        {/* ISSUED */}
+
 
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
@@ -493,7 +434,7 @@ const ManageBooks = () => {
           </p>
         </div>
 
-        {/* AVAILABLE */}
+
 
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
@@ -505,7 +446,6 @@ const ManageBooks = () => {
           </p>
         </div>
 
-        {/* TOTAL STOCK */}
 
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
@@ -518,13 +458,10 @@ const ManageBooks = () => {
         </div>
       </div>
 
-      {/* =====================================================
-          BOOK TABLE SECTION
-      ====================================================== */}
+
 
       <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
 
-        {/* FILTERS */}
 
         <BookFilters
           searchTerm={searchTerm}
@@ -535,7 +472,6 @@ const ManageBooks = () => {
           onAddBook={handleOpenAddModal}
         />
 
-        {/* BOOK TABLE */}
 
         <BookTable
           books={books}
@@ -545,7 +481,6 @@ const ManageBooks = () => {
           onIssue={handleIssue}
         />
 
-        {/* PAGINATION */}
 
         <BookPagination
           pageNumber={pageNumber}
@@ -557,9 +492,7 @@ const ManageBooks = () => {
         />
       </div>
 
-      {/* =====================================================
-          ADD / EDIT BOOK MODAL
-      ====================================================== */}
+
 
       <BookFormModal
         isOpen={isModalOpen}
@@ -571,20 +504,18 @@ const ManageBooks = () => {
         onClose={handleCloseModal}
       />
 
-      {/* =====================================================
-          DELETE BOOK MODAL
-      ====================================================== */}
-<DeleteBookModal
-  deletingBookId={deletingBookId}
-  onCancel={() => setDeletingBookId(null)}
-  onConfirm={handleDelete}
-/>
 
-<IssueBookModal
-  isOpen={isIssueModalOpen}
-  book={selectedBook}
-  onClose={handleCloseIssueModal}
-/>
+      <DeleteBookModal
+        deletingBookId={deletingBookId}
+        onCancel={() => setDeletingBookId(null)}
+        onConfirm={handleDelete}
+      />
+
+      <IssueBookModal
+        isOpen={isIssueModalOpen}
+        book={selectedBook}
+        onClose={handleCloseIssueModal}
+      />
     </div>
   );
 };

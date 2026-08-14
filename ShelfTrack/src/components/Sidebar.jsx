@@ -9,7 +9,7 @@ function Sidebar({ isOpen, onClose }) {
 
     toast.success("Logout successful!");
 
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   const linkClass = ({ isActive }) =>
