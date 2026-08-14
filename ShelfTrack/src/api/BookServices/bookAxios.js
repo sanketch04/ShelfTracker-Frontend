@@ -82,12 +82,42 @@ export const getAllCategories = async () => {
 
   return response.data;
 };
-// GET AVAILABLE BOOK COPIES FOR ISSUE
+
 export const getAvailableBookCopies = async (bookId) => {
   const response = await api.get("/BookCopies/available", {
     params: {
       bookId,
     },
+  });
+
+  return response.data;
+};
+
+export const getIssueHistory = async ({
+  search = "",
+  bookId = null,
+  memberId = null,
+  status = "",
+  sortBy = "issuedAt",
+  sortOrder = "desc",
+  pageNumber = 1,
+  pageSize = 10,
+} = {}) => {
+  const params = {
+    search,
+    sortBy,
+    sortOrder,
+    pageNumber,
+    pageSize,
+  };
+
+  if (status) params.status = status;
+  if (bookId !== null && bookId !== undefined) params.bookId = Number(bookId);
+  if (memberId !== null && memberId !== undefined)
+    params.memberId = Number(memberId);
+
+  const response = await api.get("/Issue/history", {
+    params,
   });
 
   return response.data;

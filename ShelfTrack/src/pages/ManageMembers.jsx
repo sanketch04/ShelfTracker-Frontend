@@ -14,40 +14,25 @@ import MemberFormModal from "../components/members/MemberFormModal";
 import DeleteMemberModal from "../components/members/DeleteMemberModal";
 
 const ManageMembers = () => {
-  // =========================
-  // MEMBERS
-  // =========================
+ 
   const [members, setMembers] = useState([]);
 
-  // =========================
-  // LOADING
-  // =========================
   const [loading, setLoading] = useState(false);
 
-  // =========================
-  // SEARCH
-  // =========================
+ 
   const [searchTerm, setSearchTerm] = useState("");
 
-  // =========================
-  // PAGINATION
-  // =========================
   const [pageNumber, setPageNumber] = useState(1);
   const pageSize = 10;
 
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
-  // =========================
-  // MODAL
-  // =========================
+ 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMemberId, setEditingMemberId] = useState(null);
   const [deletingMemberId, setDeletingMemberId] = useState(null);
 
-  // =========================
-  // FORM
-  // =========================
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -56,9 +41,7 @@ const ManageMembers = () => {
     status: 0,
   });
 
-  // =========================
-  // GET MEMBERS
-  // =========================
+ 
   const fetchMembers = async () => {
     setLoading(true);
 
@@ -81,24 +64,18 @@ const ManageMembers = () => {
     }
   };
 
-  // =========================
-  // INITIAL LOAD / SEARCH / PAGE CHANGE
-  // =========================
+
   useEffect(() => {
     fetchMembers();
   }, [searchTerm, pageNumber]);
 
-  // =========================
-  // SEARCH
-  // =========================
+  
   const handleSearchChange = (value) => {
     setSearchTerm(value);
     setPageNumber(1);
   };
 
-  // =========================
-  // FORM INPUT
-  // =========================
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -108,9 +85,7 @@ const ManageMembers = () => {
     }));
   };
 
-  // =========================
-  // OPEN ADD MODAL
-  // =========================
+
   const handleOpenAddModal = () => {
     setEditingMemberId(null);
 
@@ -125,9 +100,7 @@ const ManageMembers = () => {
     setIsModalOpen(true);
   };
 
-  // =========================
-  // OPEN EDIT MODAL
-  // =========================
+  
   const handleOpenEditModal = (member) => {
     setEditingMemberId(member.id);
 
@@ -142,17 +115,12 @@ const ManageMembers = () => {
     setIsModalOpen(true);
   };
 
-  // =========================
-  // CLOSE MODAL
-  // =========================
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingMemberId(null);
   };
 
-  // =========================
-  // SUBMIT
-  // =========================
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -176,9 +144,6 @@ const ManageMembers = () => {
     }
   };
 
-  // =========================
-  // DELETE
-  // =========================
   const handleDelete = async () => {
     if (!deletingMemberId) {
       return;
@@ -191,7 +156,7 @@ const ManageMembers = () => {
 
       setDeletingMemberId(null);
 
-      // Last member of current page deleted
+    
       if (members.length === 1 && pageNumber > 1) {
         setPageNumber((previous) => previous - 1);
       } else {
@@ -204,39 +169,29 @@ const ManageMembers = () => {
     }
   };
 
-  // =========================
-  // PREVIOUS PAGE
-  // =========================
+  
   const handlePreviousPage = () => {
     if (pageNumber > 1) {
       setPageNumber((previous) => previous - 1);
     }
   };
 
-  // =========================
-  // NEXT PAGE
-  // =========================
+ 
   const handleNextPage = () => {
     if (pageNumber < totalPages) {
       setPageNumber((previous) => previous + 1);
     }
   };
 
-  // =========================
-  // UI
-  // =========================
+  
   return (
     <>
-      {/* =================================
-          PAGE HEADER
-      ================================= */}
+      
       <div className="mb-6 ">
         <h1 className="text-1xl font-bold text-gray-800">Manage Members</h1>
       </div>
 
-      {/* =================================
-          TOTAL MEMBERS CARD
-      ================================= */}
+     
       <div className="mb-6 flex flex-wrap gap-4">
         <div className="w-full rounded-xl border border-gray-100 bg-white p-4 shadow-sm sm:w-48">
           <h3 className="text-xs font-medium uppercase tracking-wider text-gray-400">
@@ -247,18 +202,13 @@ const ManageMembers = () => {
         </div>
       </div>
 
-      {/* =================================
-          MAIN CARD
-      ================================= */}
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-        {/* =================================
-            SEARCH + ADD
-        ================================= */}
+     
         <div className="border-b border-gray-200 px-5 py-4">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            {/* SEARCH */}
+         
             <div className="relative w-full md:max-w-md">
-              {/* SEARCH ICON */}
+             
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -285,7 +235,7 @@ const ManageMembers = () => {
               />
             </div>
 
-            {/* ADD BUTTON */}
+           
             <button
               type="button"
               onClick={handleOpenAddModal}
@@ -297,9 +247,6 @@ const ManageMembers = () => {
           </div>
         </div>
 
-        {/* =================================
-            MEMBER TABLE
-        ================================= */}
         <MemberTable
           members={members}
           loading={loading}
@@ -307,9 +254,6 @@ const ManageMembers = () => {
           onDelete={setDeletingMemberId}
         />
 
-        {/* =================================
-            PAGINATION
-        ================================= */}
         <MemberPagination
           pageNumber={pageNumber}
           totalPages={totalPages}
@@ -320,9 +264,7 @@ const ManageMembers = () => {
         />
       </div>
 
-      {/* =================================
-          ADD / EDIT MODAL
-      ================================= */}
+
       <MemberFormModal
         isOpen={isModalOpen}
         editingMemberId={editingMemberId}
@@ -332,9 +274,7 @@ const ManageMembers = () => {
         onClose={handleCloseModal}
       />
 
-      {/* =================================
-          DELETE MODAL
-      ================================= */}
+     
       <DeleteMemberModal
         deletingMemberId={deletingMemberId}
         onCancel={() => setDeletingMemberId(null)}
