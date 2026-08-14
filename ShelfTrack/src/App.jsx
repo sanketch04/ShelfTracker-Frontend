@@ -7,6 +7,8 @@ import ManageMembers from "./pages/ManageMembers";
 
 import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import IssueDesk from "./pages/IssueDesk";
+
 
 function App() {
   return (
