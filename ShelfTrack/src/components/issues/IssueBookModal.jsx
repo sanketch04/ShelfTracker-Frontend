@@ -22,9 +22,7 @@ const IssueBookModal = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // ============================================
-  // LOAD MEMBERS + AVAILABLE BOOK COPIES
-  // ============================================
+  
 
   useEffect(() => {
     if (!isOpen || !book) return;
@@ -36,7 +34,6 @@ const IssueBookModal = ({
     try {
       setError("");
 
-      // Get members
       const memberResponse = await getAllMembers();
 
       setMembers(
@@ -45,7 +42,6 @@ const IssueBookModal = ({
           : memberResponse.items || []
       );
 
-      // Get available copies for selected book
       const copiesResponse = await getAvailableBookCopies(book.id);
 
       console.log("AVAILABLE BOOK COPIES:", copiesResponse);
@@ -65,22 +61,18 @@ const IssueBookModal = ({
     }
   };
 
-  // ============================================
-  // ISSUE BOOK
-  // ============================================
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
 
-    // Validate member
     if (!memberId) {
       setError("Please select a member.");
       return;
     }
 
-    // Validate book copy
     if (!bookCopyId) {
       setError("Please select a book copy.");
       return;
@@ -95,10 +87,8 @@ const IssueBookModal = ({
         dueDate: dueDate || null,
       });
 
-      // Refresh parent data
       onSuccess?.();
 
-      // Close modal
       onClose();
 
     } catch (error) {
@@ -113,17 +103,13 @@ const IssueBookModal = ({
     }
   };
 
-  // ============================================
-  // CLOSE MODAL
-  // ============================================
+  
 
   if (!isOpen) {
     return null;
   }
 
-  // ============================================
-  // UI
-  // ============================================
+  
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
@@ -136,9 +122,7 @@ const IssueBookModal = ({
           Issue Book
         </h2>
 
-        {/* ============================================
-            BOOK DETAILS
-        ============================================ */}
+
 
         <div className="mt-4 rounded-lg bg-gray-50 p-3">
 
@@ -158,9 +142,7 @@ const IssueBookModal = ({
 
         <form onSubmit={handleSubmit}>
 
-          {/* ============================================
-              MEMBER
-          ============================================ */}
+         
 
           <div className="mt-4">
 
@@ -192,9 +174,7 @@ const IssueBookModal = ({
 
           </div>
 
-          {/* ============================================
-              BOOK COPY
-          ============================================ */}
+          
 
           <div className="mt-4">
 
@@ -224,7 +204,6 @@ const IssueBookModal = ({
 
             </select>
 
-            {/* No copies available */}
 
             {bookCopies.length === 0 && (
               <p className="mt-1 text-xs text-red-500">
@@ -234,9 +213,7 @@ const IssueBookModal = ({
 
           </div>
 
-          {/* ============================================
-              DUE DATE
-          ============================================ */}
+
 
           <div className="mt-4">
 
@@ -258,9 +235,7 @@ const IssueBookModal = ({
 
           </div>
 
-          {/* ============================================
-              ERROR
-          ============================================ */}
+        
 
           {error && (
             <div className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
@@ -268,9 +243,7 @@ const IssueBookModal = ({
             </div>
           )}
 
-          {/* ============================================
-              BUTTONS
-          ============================================ */}
+          
 
           <div className="mt-6 flex justify-end gap-2">
 
